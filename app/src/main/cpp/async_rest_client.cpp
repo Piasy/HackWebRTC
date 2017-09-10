@@ -3,9 +3,10 @@
 //
 
 #include <restclient-cpp/restclient.h>
+#include <webrtc/rtc_base/bind.h>
+#include <webrtc/modules/utility/include/helpers_android.h>
+
 #include "async_rest_client.h"
-#include "webrtc/rtc_base/bind.h"
-#include "webrtc/modules/utility/include/helpers_android.h"
 
 static JNIEnv *jni() {
     return webrtc_jni::AttachCurrentThreadIfNeeded();
@@ -50,7 +51,7 @@ void AsyncRestClient::invokeGet(const std::string &url, AsyncRestClientCallback 
 AsyncRestClientCallback::AsyncRestClientCallback(jobject callback_)
         : callback(jni()->NewGlobalRef(callback_)) {
     jclass callback_class = webrtc::FindClass(jni(),
-                                              "com/github/piasy/try_webrtc/AsyncRestClient$Callback");
+                                              "com/github/piasy/hack_webrtc/AsyncRestClient$Callback");
     on_error = webrtc::GetMethodID(jni(), callback_class, "onError", "(I)V");
     on_success = webrtc::GetMethodID(jni(), callback_class, "onSuccess", "(ILjava/lang/String;)V");
 }

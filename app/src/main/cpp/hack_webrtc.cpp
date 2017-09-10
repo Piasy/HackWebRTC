@@ -3,7 +3,9 @@
 //
 
 #include <jni.h>
+
 #include <restclient-cpp/restclient.h>
+
 #include "async_rest_client.h"
 
 static bool s_jvm_initialized = false;
@@ -11,7 +13,7 @@ static bool s_jvm_initialized = false;
 extern "C" {
 
 JNIEXPORT jlong JNICALL
-Java_com_github_piasy_try_1webrtc_AsyncRestClient_nativeInit(JNIEnv *env, jclass type) {
+Java_com_github_piasy_hack_1webrtc_AsyncRestClient_nativeInit(JNIEnv *env, jclass type) {
     if (!s_jvm_initialized) {
         s_jvm_initialized = true;
         JavaVM *jvm = nullptr;
@@ -24,7 +26,7 @@ Java_com_github_piasy_try_1webrtc_AsyncRestClient_nativeInit(JNIEnv *env, jclass
 }
 
 JNIEXPORT void JNICALL
-Java_com_github_piasy_try_1webrtc_AsyncRestClient_nativeGet(JNIEnv *env, jclass type,
+Java_com_github_piasy_hack_1webrtc_AsyncRestClient_nativeGet(JNIEnv *env, jclass type,
                                                              jlong nativeClient, jstring url_,
                                                              jobject callback) {
     const char *url = env->GetStringUTFChars(url_, 0);
@@ -36,7 +38,7 @@ Java_com_github_piasy_try_1webrtc_AsyncRestClient_nativeGet(JNIEnv *env, jclass 
 }
 
 JNIEXPORT void JNICALL
-Java_com_github_piasy_try_1webrtc_AsyncRestClient_nativeDestroy(JNIEnv *env, jclass type,
+Java_com_github_piasy_hack_1webrtc_AsyncRestClient_nativeDestroy(JNIEnv *env, jclass type,
                                                                 jlong nativeClient) {
     delete (AsyncRestClient::fromJ(nativeClient));
 }

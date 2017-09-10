@@ -1,4 +1,4 @@
-package com.github.piasy.try_webrtc;
+package com.github.piasy.hack_webrtc;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -12,9 +12,11 @@ public class AsyncRestClient {
     private static final Handler UI_HANDLER = new Handler(Looper.getMainLooper());
 
     static {
+        System.loadLibrary("c++_shared");
         System.loadLibrary("z");
         System.loadLibrary("curl");
-        System.loadLibrary("try_webrtc");
+        //System.loadLibrary("restclient-cpp");
+        System.loadLibrary("hack_webrtc");
     }
 
     private long mNativeClient;

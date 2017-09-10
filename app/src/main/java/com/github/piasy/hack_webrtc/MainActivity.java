@@ -1,4 +1,4 @@
-package com.github.piasy.try_webrtc;
+package com.github.piasy.hack_webrtc;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
