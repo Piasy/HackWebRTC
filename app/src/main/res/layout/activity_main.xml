@@ -8,11 +8,11 @@
         tools:context=".MainActivity"
         >
 
-    <Button
-            android:id="@+id/mBtnPost"
+    <TextView
+            android:id="@+id/mBtnGet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="post"
+            android:text="get"
             />
 
 </FrameLayout>

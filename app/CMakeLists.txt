@@ -33,6 +33,8 @@ target_link_libraries(try_webrtc
                       log
 
                       restclient
-                      ${CWD}/libs/curl-7.55.1/lib/libcurl.a
-                      ${CWD}/libs/zlib-1.2.11/lib/libz.a
+                      #${CWD}/libs/curl-7.55.1/lib/libcurl.a
+                      ${CWD}/src/main/jniLibs/armeabi-v7a/libcurl.so
+                      #${CWD}/libs/zlib-1.2.11/lib/libz.a
+                      ${CWD}/src/main/jniLibs/armeabi-v7a/libz.so
                       )

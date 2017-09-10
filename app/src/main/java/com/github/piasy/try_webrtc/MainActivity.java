@@ -7,6 +7,9 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity {
 
     static {
+        System.loadLibrary("c++_shared");
+        System.loadLibrary("curl");
+        System.loadLibrary("z");
         System.loadLibrary("try_webrtc");
     }
 
@@ -16,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.mBtnPost).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.mBtnGet).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 startPost();
@@ -28,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         new Thread() {
             @Override
             public void run() {
-                directGet("https://api.github.com/users/Piasy");
+                directGet("ip.gs");
             }
         }.start();
     }
