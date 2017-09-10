@@ -13,7 +13,7 @@ android {
         ndk.abiFilters = ['armeabi-v7a']
         externalNativeBuild {
             cmake {
-                arguments = ['-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static']
+                arguments = ['-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_shared']
                 cppFlags '-std=c++11 -fno-rtti'
             }
         }
