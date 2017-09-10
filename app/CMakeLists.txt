@@ -4,8 +4,8 @@ set(CWD ${CMAKE_CURRENT_LIST_DIR})
 
 
 add_library(restclient
-            STATIC
-            #SHARED
+            #STATIC
+            SHARED
             IMPORTED
             )
 set_target_properties( # Specifies the target library.
@@ -15,8 +15,8 @@ set_target_properties( # Specifies the target library.
                        PROPERTIES IMPORTED_LOCATION
 
                        # Provides the path to the library you want to import.
-                       ${CWD}/libs/restclient-0.4.4/lib/armeabi-v7a/librestclient-cpp.a
-                       #${CWD}/src/main/jniLibs/armeabi-v7a/librestclient-cpp.so
+                       #${CWD}/libs/restclient-0.4.4/lib/armeabi-v7a/librestclient-cpp.a
+                       ${CWD}/src/main/jniLibs/armeabi-v7a/librestclient-cpp.so
                        )
 include_directories(${CWD}/libs/restclient-0.4.4/include)
 

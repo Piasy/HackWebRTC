@@ -15,7 +15,7 @@ public class AsyncRestClient {
         System.loadLibrary("c++_shared");
         System.loadLibrary("z");
         System.loadLibrary("curl");
-        //System.loadLibrary("restclient-cpp");
+        System.loadLibrary("restclient-cpp");
         System.loadLibrary("hack_webrtc");
     }
 
