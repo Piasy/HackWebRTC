@@ -333,11 +333,12 @@ enum vp8e_enc_control_id {
    *             2 = 4 tile columns
    *             .....
    *             n = 2**n tile columns
-   * The requested tile columns will be capped by encoder based on image size
-   * limitation (The minimum width of a tile column is 256 pixel, the maximum
-   * is 4096).
+   * The requested tile columns will be capped by the encoder based on image
+   * size limitations (The minimum width of a tile column is 256 pixels, the
+   * maximum is 4096).
    *
-   * By default, the value is 0, i.e. one single column tile for entire image.
+   * By default, the value is 6, i.e., the maximum number of tiles supported by
+   * the resolution.
    *
    * Supported in codecs: VP9
    */
@@ -368,10 +369,10 @@ enum vp8e_enc_control_id {
    * VP9 has a bitstream feature to reduce decoding dependency between frames
    * by turning off backward update of probability context used in encoding
    * and decoding. This allows staged parallel processing of more than one
-   * video frames in the decoder. This control function provides a mean to
+   * video frame in the decoder. This control function provides a means to
    * turn this feature on or off for bitstreams produced by encoder.
    *
-   * By default, this feature is off.
+   * By default, this feature is on.
    *
    * Supported in codecs: VP9
    */

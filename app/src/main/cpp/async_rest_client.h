@@ -9,10 +9,10 @@
 
 #include <android/log.h>
 
-#include <webrtc/rtc_base/logging.h>
-#include <webrtc/rtc_base/thread.h>
-#include <webrtc/rtc_base/asyncinvoker.h>
-#include <webrtc/sdk/android/src/jni/jni_helpers.h>
+#include <rtc_base/logging.h>
+#include <rtc_base/thread.h>
+#include <rtc_base/asyncinvoker.h>
+#include <sdk/android/src/jni/jni_helpers.h>
 
 class AsyncRestClientCallback;
 

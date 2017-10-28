@@ -3,8 +3,8 @@
 //
 
 #include <restclient-cpp/restclient.h>
-#include <webrtc/rtc_base/bind.h>
-#include <webrtc/modules/utility/include/helpers_android.h>
+#include <rtc_base/bind.h>
+#include <modules/utility/include/helpers_android.h>
 
 #include "async_rest_client.h"
 

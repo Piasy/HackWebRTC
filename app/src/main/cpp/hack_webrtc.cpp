@@ -22,7 +22,7 @@ Java_com_github_piasy_hack_1webrtc_AsyncRestClient_nativeInit(JNIEnv *env, jclas
     }
     rtc::ThreadManager::Instance()->WrapCurrentThread();
 
-    return webrtc_jni::jlongFromPointer(new AsyncRestClient());
+    return webrtc::jni::jlongFromPointer(new AsyncRestClient());
 }
 
 JNIEXPORT void JNICALL

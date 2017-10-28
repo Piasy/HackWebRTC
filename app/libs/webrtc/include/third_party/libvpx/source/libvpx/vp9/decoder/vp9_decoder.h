@@ -21,7 +21,6 @@
 #include "vp9/common/vp9_thread_common.h"
 #include "vp9/common/vp9_onyxc_int.h"
 #include "vp9/common/vp9_ppflags.h"
-#include "vp9/decoder/vp9_dthread.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -53,13 +52,10 @@ typedef struct VP9Decoder {
 
   int refresh_frame_flags;
 
-  int frame_parallel_decode;  // frame-based threading.
-
   // TODO(hkuang): Combine this with cur_buf in macroblockd as they are
   // the same.
   RefCntBuffer *cur_buf;  //  Current decoding frame buffer.
 
-  VPxWorker *frame_worker_owner;  // frame_worker that owns this pbi.
   VPxWorker lf_worker;
   VPxWorker *tile_workers;
   TileWorkerData *tile_worker_data;
