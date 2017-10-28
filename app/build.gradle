@@ -33,4 +33,5 @@ android {
 
 dependencies {
     implementation 'com.android.support:appcompat-v7:27.0.0'
+    implementation 'org.jsoup:jsoup:1.10.3'
 }
