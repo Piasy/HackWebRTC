@@ -15,7 +15,7 @@ set_target_properties( # Specifies the target library.
                        PROPERTIES IMPORTED_LOCATION
 
                        # Provides the path to the library you want to import.
-                       ${CWD}/libs/restclient-0.4.4/lib/librestclient-cpp.a
+                       ${CWD}/libs/restclient-0.4.4/lib/armeabi-v7a/librestclient-cpp.a
                        #${CWD}/src/main/jniLibs/armeabi-v7a/librestclient-cpp.so
                        )
 include_directories(${CWD}/libs/restclient-0.4.4/include)
@@ -38,7 +38,7 @@ target_link_libraries(hack_webrtc
                       android
                       log
 
-                      ${CWD}/libs/webrtc/lib/libwebrtc.a
+                      ${CWD}/libs/webrtc/lib/armeabi-v7a/libwebrtc.a
 
                       restclient
                       ${CWD}/src/main/jniLibs/armeabi-v7a/libcurl.so

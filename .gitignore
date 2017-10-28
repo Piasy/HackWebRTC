@@ -6,4 +6,4 @@
 /build
 /captures
 .externalNativeBuild
-app/libs/webrtc/lib/libwebrtc.a
+app/libs/webrtc/lib/armeabi-v7a/libwebrtc.a
