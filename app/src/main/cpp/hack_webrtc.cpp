@@ -34,6 +34,9 @@ Java_com_github_piasy_hack_1webrtc_rest_1client_AsyncRestClient_nativeGet(
         JNIEnv* env, jclass type, jlong nativeClient, jstring url_, jobject callback) {
     const char* url = env->GetStringUTFChars(url_, 0);
 
+    std::unique_ptr<AsyncRestClientCallback> test
+            = std::make_unique<AsyncRestClientCallback>(callback);
+
     AsyncRestClient* client = fromJ(AsyncRestClient, nativeClient);
     client->get(url, new AsyncRestClientCallback(callback));
 

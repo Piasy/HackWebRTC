@@ -21,15 +21,16 @@ public:
 
     ~AsyncRestClient();
 
-    void
-    get(const std::string& url, AsyncRestClientCallback* callback);
+    void get(const std::string& url, AsyncRestClientCallback* callback);
 
 private:
     void invokeGet(const std::string& url, AsyncRestClientCallback* callback);
+    void notifySuccess(AsyncRestClientCallback* callback, int code, const std::string& body);
+    void notifyError(AsyncRestClientCallback* callback, int code);
 
     std::unique_ptr<rtc::Thread> signal_thread;
     std::unique_ptr<rtc::Thread> network_thread;
-    rtc::AsyncInvoker* invoker;
+    std::unique_ptr<rtc::AsyncInvoker> invoker;
 };
 
 class AsyncRestClientCallback {

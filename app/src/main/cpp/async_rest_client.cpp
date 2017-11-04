@@ -13,20 +13,17 @@ static JNIEnv* jni() {
     return webrtc_jni::AttachCurrentThreadIfNeeded();
 }
 
-AsyncRestClient::AsyncRestClient() {
-    signal_thread = rtc::Thread::Create();
+AsyncRestClient::AsyncRestClient()
+        : signal_thread(rtc::Thread::Create()),
+          network_thread(rtc::Thread::Create()),
+          invoker(std::make_unique<rtc::AsyncInvoker>()) {
     signal_thread->Start();
-    network_thread = rtc::Thread::Create();
     network_thread->Start();
-    invoker = new rtc::AsyncInvoker();
 }
 
 AsyncRestClient::~AsyncRestClient() {
-    signal_thread->Stop();
-    signal_thread.release();
-    network_thread->Stop();
-    network_thread.release();
-    delete (invoker);
+    // no need to call stop, ~Thread will call stop automatically.
+    //signal_thread->Stop();
 }
 
 void AsyncRestClient::get(const std::string& url, AsyncRestClientCallback* callback) {
@@ -40,17 +37,29 @@ void AsyncRestClient::invokeGet(const std::string& url, AsyncRestClientCallback*
     RestClient::Response response = RestClient::get(url);
     if (200 <= response.code && response.code <= 300) {
         invoker->AsyncInvoke<void>(RTC_FROM_HERE, signal_thread.get(),
-                                   rtc::Bind(&AsyncRestClientCallback::onSuccess,
+                                   rtc::Bind(&AsyncRestClient::notifySuccess, this,
                                              callback, response.code, response.body));
     } else {
         invoker->AsyncInvoke<void>(RTC_FROM_HERE, signal_thread.get(),
-                                   rtc::Bind(&AsyncRestClientCallback::onError,
+                                   rtc::Bind(&AsyncRestClient::notifyError, this,
                                              callback, response.code));
     }
 }
 
+void AsyncRestClient::notifySuccess(AsyncRestClientCallback* callback, int code,
+                                    const std::string& body) {
+    callback->onSuccess(code, body);
+    delete callback;
+}
+
+void AsyncRestClient::notifyError(AsyncRestClientCallback* callback, int code) {
+    callback->onError(code);
+    delete callback;
+}
+
 AsyncRestClientCallback::AsyncRestClientCallback(jobject callback_)
         : callback(jni()->NewGlobalRef(callback_)) {
+    LOG(LS_INFO) << "AsyncRestClientCallback " << (long) this;
     jclass callback_class = webrtc::FindClass(
             jni(), "com/github/piasy/hack_webrtc/rest_client/AsyncRestClient$Callback");
     on_error = webrtc::GetMethodID(jni(), callback_class, "onError", "(I)V");
@@ -59,6 +68,7 @@ AsyncRestClientCallback::AsyncRestClientCallback(jobject callback_)
 
 AsyncRestClientCallback::~AsyncRestClientCallback() {
     jni()->DeleteGlobalRef(callback);
+    LOG(LS_INFO) << "~AsyncRestClientCallback " << (long) this;
 }
 
 void AsyncRestClientCallback::onSuccess(int code, const std::string& body) {
