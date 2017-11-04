@@ -5,10 +5,11 @@
 #include <restclient-cpp/restclient.h>
 #include <rtc_base/bind.h>
 #include <modules/utility/include/helpers_android.h>
+#include <sdk/android/src/jni/jni_helpers.h>
 
 #include "async_rest_client.h"
 
-static JNIEnv *jni() {
+static JNIEnv* jni() {
     return webrtc_jni::AttachCurrentThreadIfNeeded();
 }
 
@@ -28,12 +29,12 @@ AsyncRestClient::~AsyncRestClient() {
     delete (invoker);
 }
 
-void AsyncRestClient::get(const std::string &url, AsyncRestClientCallback *callback) {
+void AsyncRestClient::get(const std::string& url, AsyncRestClientCallback* callback) {
     invoker->AsyncInvoke<void>(RTC_FROM_HERE, network_thread.get(),
-                         rtc::Bind(&AsyncRestClient::invokeGet, this, url, callback));
+                               rtc::Bind(&AsyncRestClient::invokeGet, this, url, callback));
 }
 
-void AsyncRestClient::invokeGet(const std::string &url, AsyncRestClientCallback *callback) {
+void AsyncRestClient::invokeGet(const std::string& url, AsyncRestClientCallback* callback) {
     LOG(LS_INFO) << "get " << url;
 
     RestClient::Response response = RestClient::get(url);
@@ -50,8 +51,8 @@ void AsyncRestClient::invokeGet(const std::string &url, AsyncRestClientCallback 
 
 AsyncRestClientCallback::AsyncRestClientCallback(jobject callback_)
         : callback(jni()->NewGlobalRef(callback_)) {
-    jclass callback_class = webrtc::FindClass(jni(),
-                                              "com/github/piasy/hack_webrtc/AsyncRestClient$Callback");
+    jclass callback_class = webrtc::FindClass(
+            jni(), "com/github/piasy/hack_webrtc/rest_client/AsyncRestClient$Callback");
     on_error = webrtc::GetMethodID(jni(), callback_class, "onError", "(I)V");
     on_success = webrtc::GetMethodID(jni(), callback_class, "onSuccess", "(ILjava/lang/String;)V");
 }
@@ -60,7 +61,7 @@ AsyncRestClientCallback::~AsyncRestClientCallback() {
     jni()->DeleteGlobalRef(callback);
 }
 
-void AsyncRestClientCallback::onSuccess(int code, const std::string &body) {
+void AsyncRestClientCallback::onSuccess(int code, const std::string& body) {
     jni()->CallVoidMethod(callback, on_success, code, jni()->NewStringUTF(body.c_str()));
 }
 

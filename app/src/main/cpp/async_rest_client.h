@@ -12,29 +12,24 @@
 #include <rtc_base/logging.h>
 #include <rtc_base/thread.h>
 #include <rtc_base/asyncinvoker.h>
-#include <sdk/android/src/jni/jni_helpers.h>
 
 class AsyncRestClientCallback;
 
 class AsyncRestClient {
 public:
-    static AsyncRestClient *fromJ(jlong handle) {
-        return reinterpret_cast<AsyncRestClient *>(handle);
-    }
-
     AsyncRestClient();
 
     ~AsyncRestClient();
 
     void
-    get(const std::string &url, AsyncRestClientCallback *callback);
+    get(const std::string& url, AsyncRestClientCallback* callback);
 
 private:
-    void invokeGet(const std::string &url, AsyncRestClientCallback *callback);
+    void invokeGet(const std::string& url, AsyncRestClientCallback* callback);
 
     std::unique_ptr<rtc::Thread> signal_thread;
     std::unique_ptr<rtc::Thread> network_thread;
-    rtc::AsyncInvoker *invoker;
+    rtc::AsyncInvoker* invoker;
 };
 
 class AsyncRestClientCallback {
@@ -43,7 +38,8 @@ public:
 
     ~AsyncRestClientCallback();
 
-    void onSuccess(int code, const std::string &body);
+    void onSuccess(int code, const std::string& body);
+
     void onError(int code);
 
 private:

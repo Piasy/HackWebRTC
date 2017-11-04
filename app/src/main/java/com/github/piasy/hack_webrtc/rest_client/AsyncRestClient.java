@@ -1,4 +1,4 @@
-package com.github.piasy.hack_webrtc;
+package com.github.piasy.hack_webrtc.rest_client;
 
 import android.os.Handler;
 import android.os.Looper;
