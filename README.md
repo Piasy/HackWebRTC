@@ -4,7 +4,7 @@ Let's hack into WebRTC :)
 
 ## Use WebRTC static library
 
-+ https://blog.piasy.com/2017/09/03/Use-WebRTC-Static-Library/
++ https://blog.piasy.com/2017/09/03/Use-WebRTC-Static-Library/index.html
 + Copy header files:
 
 ``` bash
