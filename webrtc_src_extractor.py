@@ -3,7 +3,7 @@ import glob
 import subprocess
 
 src_black_list_keywords = [
-    'googletest', 'gtest', 'mock', '_unittest', '_test', '_integrationtest'
+    'googletest', 'gtest', 'mock', '_unittest', '_test', '_integrationtest', '_benchmark'
 ]
 src_white_list = [
     'rtc_base/gtest_prod_util.h'
@@ -17,6 +17,9 @@ special_related_src = {
         # header won't be included in `find_sources`, 
         # but will be included in `extract_includes`
         'system_wrappers/source/metrics_default.cc',
+    ],
+    'third_party/abseil-cpp/absl/strings/string_view.cc': [
+        'third_party/abseil-cpp/absl/strings/internal/memutil.cc',
     ],
 }
 
